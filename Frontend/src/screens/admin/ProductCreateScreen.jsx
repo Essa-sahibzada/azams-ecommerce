@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../../api';
 
 const Sidebar = () => {
   const navLinks = [
@@ -66,7 +67,7 @@ const ProductCreateScreen = () => {
     if (!name || !price || !category || !image) return setError('Sab fields zaruri hain.');
     setLoading(true);
     try {
-      await axios.post('/api/products', {
+      await axios.post(`${API_URL}/api/products', {
         name, price: Number(price),
         countInStock: Number(countInStock),
         category, image, description,

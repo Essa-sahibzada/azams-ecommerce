@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../api';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 
 const HomeScreen = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+  const { colors } = useTheme();
   const [addedId, setAddedId] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('/api/products');
+        const { data } = await axios.get(`${API_URL}/api/products`);
         setProducts(data.slice(0, 4));
       } catch (err) {
         console.error(err);
@@ -30,7 +33,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <div style={{ fontFamily: "'Josefin Sans', sans-serif", backgroundColor: '#F7F4EF', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Josefin Sans', sans-serif", backgroundColor: colors.bg, minHeight: '100vh', transition: 'background 0.3s' }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap');
         @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }

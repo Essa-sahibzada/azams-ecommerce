@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../api';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 
 const CheckoutScreen = () => {
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ const CheckoutScreen = () => {
 
     setLoading(true);
     try {
-      await axios.post('/api/orders', {
+      await axios.post(`${API_URL}/api/orders`, {
         orderItems: cartItems.map((item) => ({
           name: item.name,
           qty: item.qty,
@@ -83,7 +85,7 @@ const CheckoutScreen = () => {
   };
 
   return (
-    <div style={{ fontFamily: "'Josefin Sans', sans-serif", backgroundColor: '#F7F4EF', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Josefin Sans', sans-serif", backgroundColor: typeof colors !== 'undefined' ? colors.bg : '#F7F4EF', minHeight: '100vh', transition: 'background 0.3s' }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Josefin+Sans:wght@300;400&display=swap');
         input::placeholder { color: #C4BFB8; font-size: 11px; }

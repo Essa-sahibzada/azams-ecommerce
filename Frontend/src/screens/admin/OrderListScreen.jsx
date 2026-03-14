@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../../api';
 
 const Sidebar = () => {
   const navLinks = [
@@ -44,7 +45,7 @@ const OrderListScreen = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await axios.get('/api/orders');
+        const { data } = await axios.get(`${API_URL}/api/orders`);
         setOrders(data);
       } catch (err) {
         console.error(err);

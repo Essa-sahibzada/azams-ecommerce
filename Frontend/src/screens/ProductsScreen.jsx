@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../api';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 
 const ProductsScreen = () => {
   const [products, setProducts] = useState([]);
@@ -15,7 +17,7 @@ const ProductsScreen = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('/api/products');
+        const { data } = await axios.get(`${API_URL}/api/products`);
         setProducts(data);
       } catch (err) {
         setError('Products load nahi hue.');

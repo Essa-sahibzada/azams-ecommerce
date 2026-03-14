@@ -105,7 +105,7 @@ const AdminLoginScreen = () => {
                 <label style={labelStyle}>Admin Email</label>
                 <input
                   type="email"
-                  placeholder="admin@azams.com"
+                  placeholder="admin@azams.comnpm"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   style={inputStyle}
