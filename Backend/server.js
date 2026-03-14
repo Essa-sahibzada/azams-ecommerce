@@ -12,10 +12,17 @@ import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 
-const app = express();
+//const app = express();
 
 // ── Middleware ──
-app.use(cors());
+//app.use(cors());
+const cors = require('cors');
+
+app.use(cors({
+  origin: ["https://azams-ecommerce-nrmpke516-essa-sahibzadas-projects.vercel.app"],
+  methods: ["POST", "GET", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 
 // ── Database Connection ──
