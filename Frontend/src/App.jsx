@@ -17,6 +17,7 @@ import ProductsScreen from "./screens/ProductsScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 
 // Admin Screens
+import AdminLoginScreen from "./screens/admin/AdminLoginScreen";
 import AdminLayout from "./screens/admin/AdminLayout";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import ProductListScreen from "./screens/admin/ProductListScreen";
@@ -47,7 +48,8 @@ const AppLayout = () => {
           <Route path="/order-success" element={<OrderSuccessScreen />} />
 
           {/* Admin Routes */}
-          <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+          <Route path="/admin/login" element={<AdminLoginScreen />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/productlist" element={<AdminLayout><ProductListScreen /></AdminLayout>} />
           <Route path="/admin/product/create" element={<AdminLayout><ProductCreateScreen /></AdminLayout>} />

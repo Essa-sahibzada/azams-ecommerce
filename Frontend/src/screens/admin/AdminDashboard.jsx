@@ -136,7 +136,7 @@ const AdminDashboard = () => {
           <div style={{ backgroundColor: 'white', overflow: 'hidden' }}>
             {/* Table Header */}
             <div style={{ display: 'grid', gridTemplateColumns: '2fr 2fr 1fr 1fr', padding: '12px 20px', backgroundColor: '#1A1A18' }}>
-              {['Customer', 'Address', 'Total', 'Status'].map((h) => (
+              {['Customer', 'City', 'Total', 'Status'].map((h) => (
                 <span key={h} style={{ fontSize: '8px', letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>{h}</span>
               ))}
             </div>
@@ -155,10 +155,10 @@ const AdminDashboard = () => {
                   alignItems: 'center',
                 }}>
                   <span style={{ fontSize: '11px', color: '#1A1A18', letterSpacing: '0.5px' }}>
-                    {order.shippingAddress?.name || order.shippingAddress?.city || '—'}
+                    {order.shippingAddress?.name || order.shippingAddress?.name || order.shippingAddress?.phone || '—'}
                   </span>
                   <span style={{ fontSize: '10px', color: '#8C8478', letterSpacing: '0.5px' }}>
-                    {order.shippingAddress?.address?.substring(0, 28) || '—'}...
+                    {order.shippingAddress?.city || '—'}
                   </span>
                   <span style={{ fontSize: '11px', color: '#C9A96E', letterSpacing: '0.5px' }}>
                     Rs. {order.totalPrice?.toLocaleString()}

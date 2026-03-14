@@ -122,13 +122,13 @@ const OrderListScreen = () => {
                   #{order._id?.slice(-6).toUpperCase()}
                 </span>
                 <span style={{ fontSize: '11px', color: '#1A1A18' }}>
-                  {order.shippingAddress?.name || '—'}
+                  {order.shippingAddress?.name || order.shippingAddress?.phone || '—'}
                 </span>
                 <span style={{ fontSize: '11px', color: '#1A1A18' }}>
                   {order.shippingAddress?.city || '—'}
                 </span>
                 <span style={{ fontSize: '11px', color: '#8C8478' }}>
-                  {order.shippingAddress?.name || '—'}
+                  {order.shippingAddress?.name || order.shippingAddress?.phone || '—'}
                 </span>
                 <span style={{ fontSize: '11px', color: '#C9A96E', letterSpacing: '0.5px' }}>
                   Rs. {order.totalPrice?.toLocaleString()}

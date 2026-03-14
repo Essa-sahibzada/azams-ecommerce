@@ -9,6 +9,8 @@ const ProductsScreen = () => {
   const [error, setError] = useState(null);
   const { addToCart } = useCart();
   const [addedId, setAddedId] = useState(null);
+  const [filter, setFilter] = useState('All');
+  const [activeGender, setActiveGender] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -120,6 +122,10 @@ const ProductsScreen = () => {
     },
   };
 
+  const menSubs = ['Shalwar Kameez', 'Shirt', 'Trouser', 'Jeans', 'T-Shirt'];
+  const womenSubs = ['Lawn Suit', 'Kurti', 'Dupatta', 'Abaya', 'Palazzo'];
+  const filteredProducts = filter === 'All' ? products : products.filter(p => p.category === filter || p.category?.toLowerCase().includes(filter.toLowerCase()));
+
   return (
     <div style={styles.page}>
       <style>{`
@@ -136,6 +142,70 @@ const ProductsScreen = () => {
           <h1 style={styles.title}>
             Our <em style={{ fontStyle: 'italic', color: '#C9A96E' }}>Collection</em>
           </h1>
+        </div>
+
+        {/* Filter Buttons */}
+        <div style={{ marginBottom: '40px' }}>
+          {/* Main Tabs */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '12px' }}>
+            {['All', 'Men', 'Women'].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => {
+                  if (cat === 'All') { setFilter('All'); setActiveGender(null); }
+                  else { setActiveGender(activeGender === cat ? null : cat); setFilter(cat); }
+                }}
+                style={{
+                  padding: '10px 32px', fontSize: '9px', letterSpacing: '3px',
+                  textTransform: 'uppercase', border: '1px solid', cursor: 'pointer',
+                  borderColor: (filter === cat || activeGender === cat) ? '#1A1A18' : '#E2DDD5',
+                  backgroundColor: (filter === cat || activeGender === cat) ? '#1A1A18' : 'transparent',
+                  color: (filter === cat || activeGender === cat) ? 'white' : '#8C8478',
+                  fontFamily: "'Josefin Sans', sans-serif", transition: 'all 0.2s',
+                }}
+              >{cat}</button>
+            ))}
+          </div>
+
+          {/* Men Subcategories */}
+          {activeGender === 'Men' && (
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              {['Shalwar Kameez', 'Shirt', 'Trouser', 'Jeans', 'T-Shirt'].map((sub) => (
+                <button
+                  key={sub}
+                  onClick={() => setFilter(sub)}
+                  style={{
+                    padding: '7px 16px', fontSize: '8px', letterSpacing: '2px',
+                    textTransform: 'uppercase', border: '1px solid', cursor: 'pointer',
+                    borderColor: filter === sub ? '#C9A96E' : '#E2DDD5',
+                    backgroundColor: filter === sub ? '#C9A96E' : 'transparent',
+                    color: filter === sub ? '#1A1A18' : '#8C8478',
+                    fontFamily: "'Josefin Sans', sans-serif", transition: 'all 0.2s',
+                  }}
+                >{sub}</button>
+              ))}
+            </div>
+          )}
+
+          {/* Women Subcategories */}
+          {activeGender === 'Women' && (
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              {['Lawn Suit', 'Kurti', 'Dupatta', 'Abaya', 'Palazzo'].map((sub) => (
+                <button
+                  key={sub}
+                  onClick={() => setFilter(sub)}
+                  style={{
+                    padding: '7px 16px', fontSize: '8px', letterSpacing: '2px',
+                    textTransform: 'uppercase', border: '1px solid', cursor: 'pointer',
+                    borderColor: filter === sub ? '#C9A96E' : '#E2DDD5',
+                    backgroundColor: filter === sub ? '#C9A96E' : 'transparent',
+                    color: filter === sub ? '#1A1A18' : '#8C8478',
+                    fontFamily: "'Josefin Sans', sans-serif", transition: 'all 0.2s',
+                  }}
+                >{sub}</button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Loading */}
@@ -157,7 +227,7 @@ const ProductsScreen = () => {
         {/* Grid */}
         {!loading && !error && products.length > 0 && (
           <div className="az-grid" style={styles.grid}>
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <div key={product._id} style={styles.card}>
 
                 {/* Image */}
@@ -206,7 +276,7 @@ const ProductsScreen = () => {
         )}
 
         {/* Empty */}
-        {!loading && !error && products.length === 0 && (
+        {!loading && !error && filteredProducts.length === 0 && (
           <p style={{ textAlign: 'center', fontFamily: "'Cormorant Garamond', serif", fontSize: '42px', fontWeight: 300, fontStyle: 'italic', color: 'rgba(201,169,110,0.3)', padding: '80px 0' }}>
             Coming Soon
           </p>

@@ -66,7 +66,11 @@ const ProductCreateScreen = () => {
     if (!name || !price || !category || !image) return setError('Sab fields zaruri hain.');
     setLoading(true);
     try {
-      await axios.post('/api/products', { name, price: Number(price), countInStock: Number(countInStock), category, image, description });
+      await axios.post('/api/products', {
+        name, price: Number(price),
+        countInStock: Number(countInStock),
+        category, image, description,
+      });
       navigate('/admin/productlist');
     } catch (err) {
       setError('Product create nahi ho saka.');
@@ -81,6 +85,7 @@ const ProductCreateScreen = () => {
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Josefin+Sans:wght@300;400&display=swap');
         input::placeholder, textarea::placeholder { color: #C4BFB8; }
         input:focus, textarea:focus, select:focus { border-color: #C9A96E !important; outline: none; }
+        optgroup { font-weight: bold; color: #1A1A18; }
       `}</style>
       <Sidebar />
 
@@ -99,7 +104,6 @@ const ProductCreateScreen = () => {
           </Link>
         </div>
 
-        {/* Error */}
         {error && (
           <div style={{ backgroundColor: '#fff0f0', border: '1px solid #fcc', padding: '12px 16px', marginBottom: '24px', fontSize: '11px', color: '#c00', letterSpacing: '1px' }}>
             {error}
@@ -109,13 +113,13 @@ const ProductCreateScreen = () => {
         <form onSubmit={submitHandler}>
           <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
 
-            {/* LEFT: Form Fields */}
+            {/* LEFT: Form */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
               {/* Name */}
               <div>
                 <label style={labelStyle}>Product Name *</label>
-                <input type="text" placeholder="e.g. Straight Fit Denim" value={name} onChange={(e) => setName(e.target.value)} style={inputStyle} />
+                <input type="text" placeholder="e.g. Embroidered Shalwar Kameez" value={name} onChange={(e) => setName(e.target.value)} style={inputStyle} />
               </div>
 
               {/* Price + Stock */}
@@ -135,10 +139,24 @@ const ProductCreateScreen = () => {
                 <label style={labelStyle}>Category *</label>
                 <select value={category} onChange={(e) => setCategory(e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
                   <option value="">Category chunein</option>
-                  <option value="Men">Men</option>
-                  <option value="Women">Women</option>
-                  <option value="Unisex">Unisex</option>
-                  <option value="Accessories">Accessories</option>
+                  <optgroup label="─── MEN ───">
+                    <option value="Shalwar Kameez">Shalwar Kameez</option>
+                    <option value="Shirt">Shirt</option>
+                    <option value="Trouser">Trouser</option>
+                    <option value="Jeans">Jeans</option>
+                    <option value="T-Shirt">T-Shirt</option>
+                  </optgroup>
+                  <optgroup label="─── WOMEN ───">
+                    <option value="Lawn Suit">Lawn Suit</option>
+                    <option value="Kurti">Kurti</option>
+                    <option value="Dupatta">Dupatta</option>
+                    <option value="Abaya">Abaya</option>
+                    <option value="Palazzo">Palazzo</option>
+                  </optgroup>
+                  <optgroup label="─── OTHER ───">
+                    <option value="Unisex">Unisex</option>
+                    <option value="Accessories">Accessories</option>
+                  </optgroup>
                 </select>
               </div>
 
@@ -151,41 +169,26 @@ const ProductCreateScreen = () => {
               {/* Description */}
               <div>
                 <label style={labelStyle}>Description</label>
-                <textarea
-                  rows={4}
-                  placeholder="Product ki detail likhein..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.8 }}
-                />
+                <textarea rows={4} placeholder="Product ki detail likhein..." value={description} onChange={(e) => setDescription(e.target.value)} style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.8 }} />
               </div>
 
               {/* Submit */}
-              <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  padding: '14px', fontSize: '9px', letterSpacing: '3px',
-                  textTransform: 'uppercase', backgroundColor: loading ? '#8C8478' : '#1A1A18',
-                  color: 'white', border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-                  fontFamily: "'Josefin Sans', sans-serif", width: '100%',
-                }}
-              >
+              <button type="submit" disabled={loading} style={{
+                padding: '14px', fontSize: '9px', letterSpacing: '3px',
+                textTransform: 'uppercase', backgroundColor: loading ? '#8C8478' : '#1A1A18',
+                color: 'white', border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
+                fontFamily: "'Josefin Sans', sans-serif", width: '100%',
+              }}>
                 {loading ? 'Creating...' : 'Create Product'}
               </button>
             </div>
 
-            {/* RIGHT: Image Preview */}
+            {/* RIGHT: Preview */}
             <div style={{ width: '280px', flexShrink: 0 }}>
               <p style={labelStyle}>Image Preview</p>
               <div style={{ width: '100%', paddingTop: '133%', position: 'relative', backgroundColor: '#E8E2D8', overflow: 'hidden' }}>
                 {image ? (
-                  <img
-                    src={image}
-                    alt="Preview"
-                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
+                  <img src={image} alt="Preview" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
                 ) : (
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '8px' }}>
                     <span style={{ fontSize: '24px', color: '#C4BFB8' }}>🖼</span>
@@ -193,8 +196,6 @@ const ProductCreateScreen = () => {
                   </div>
                 )}
               </div>
-
-              {/* Product Info Preview */}
               {(name || price) && (
                 <div style={{ marginTop: '16px', padding: '16px', backgroundColor: 'white', borderTop: '2px solid #C9A96E' }}>
                   <p style={{ fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#8C8478', marginBottom: '4px' }}>{category || 'Category'}</p>
@@ -203,7 +204,6 @@ const ProductCreateScreen = () => {
                 </div>
               )}
             </div>
-
           </div>
         </form>
       </main>

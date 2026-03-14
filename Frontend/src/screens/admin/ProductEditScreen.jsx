@@ -164,10 +164,24 @@ const ProductEditScreen = () => {
                     <label style={labelStyle}>Category *</label>
                     <select value={category} onChange={(e) => setCategory(e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
                       <option value="">Category chunein</option>
-                      <option value="Men">Men</option>
-                      <option value="Women">Women</option>
-                      <option value="Unisex">Unisex</option>
-                      <option value="Accessories">Accessories</option>
+                      <optgroup label="Men">
+                        <option value="Shalwar Kameez">Shalwar Kameez</option>
+                        <option value="Shirt">Shirt</option>
+                        <option value="Trouser">Trouser</option>
+                        <option value="Jeans">Jeans</option>
+                        <option value="T-Shirt">T-Shirt</option>
+                      </optgroup>
+                      <optgroup label="Women">
+                        <option value="Lawn Suit">Lawn Suit</option>
+                        <option value="Kurti">Kurti</option>
+                        <option value="Dupatta">Dupatta</option>
+                        <option value="Abaya">Abaya</option>
+                        <option value="Palazzo">Palazzo</option>
+                      </optgroup>
+                      <optgroup label="Other">
+                        <option value="Unisex">Unisex</option>
+                        <option value="Accessories">Accessories</option>
+                      </optgroup>
                     </select>
                   </div>
 

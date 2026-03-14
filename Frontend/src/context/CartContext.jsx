@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
-export const CartContext = createContext(); // ✅ export add kiya
+export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const cartFromStorage = localStorage.getItem('azams_cart')
@@ -13,25 +13,54 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('azams_cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
+  // Qty +1
   const addToCart = (product) => {
     const existItem = cartItems.find((x) => x._id === product._id);
     if (existItem) {
       setCartItems(
         cartItems.map((x) =>
-          x._id === existItem._id ? { ...product, qty: x.qty + 1 } : x
+          x._id === product._id ? { ...x, qty: x.qty + 1 } : x
         )
       );
     } else {
-      setCartItems([...cartItems, { ...product, qty: 1 }]);
+      setCartItems([...cartItems, { ...product, qty: product.qty || 1 }]);
     }
   };
 
+  // Qty +1 by id only
+  const increaseQty = (id) => {
+    setCartItems(
+      cartItems.map((x) =>
+        x._id === id ? { ...x, qty: x.qty + 1 } : x
+      )
+    );
+  };
+
+  // Qty -1
+  const decreaseQty = (id) => {
+    const existItem = cartItems.find((x) => x._id === id);
+    if (!existItem) return;
+    if (existItem.qty <= 1) {
+      setCartItems(cartItems.filter((x) => x._id !== id));
+    } else {
+      setCartItems(
+        cartItems.map((x) =>
+          x._id === id ? { ...x, qty: x.qty - 1 } : x
+        )
+      );
+    }
+  };
+
+  // Remove completely
   const removeFromCart = (id) => {
     setCartItems(cartItems.filter((x) => x._id !== id));
   };
 
+  // Clear all
+  const clearCart = () => setCartItems([]);
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, increaseQty, decreaseQty, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

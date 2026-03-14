@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/ThemeContext';
 
 const CartScreen = () => {
-  const { cartItems, removeFromCart, addToCart } = useCart();
+  const { cartItems, removeFromCart, addToCart, increaseQty, decreaseQty } = useCart();
   const navigate = useNavigate();
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
@@ -11,16 +12,8 @@ const CartScreen = () => {
   const total = subtotal + shippingPrice;
   const freeShipping = subtotal >= 5000;
 
-  const decreaseQty = (item) => {
-    if (item.qty === 1) {
-      removeFromCart(item._id);
-    } else {
-      addToCart({ ...item, qty: item.qty - 2 });
-    }
-  };
-
   return (
-    <div style={{ fontFamily: "'Josefin Sans', sans-serif", backgroundColor: '#F7F4EF', minHeight: '100vh' }}>
+    <div style={{ fontFamily: "'Josefin Sans', sans-serif", backgroundColor: typeof colors !== 'undefined' ? colors.bg : '#F7F4EF', minHeight: '100vh', transition: 'background 0.3s' }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Josefin+Sans:wght@300;400&display=swap');`}</style>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 32px' }}>
@@ -77,9 +70,9 @@ const CartScreen = () => {
                       {/* Qty + Remove */}
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #E2DDD5' }}>
-                          <button onClick={() => decreaseQty(item)} style={{ width: '32px', height: '32px', background: 'none', border: 'none', cursor: 'pointer', color: '#8C8478', fontSize: '16px' }}>−</button>
+                          <button onClick={() => decreaseQty(item._id)} style={{ width: '32px', height: '32px', background: 'none', border: 'none', cursor: 'pointer', color: '#8C8478', fontSize: '16px' }}>−</button>
                           <span style={{ width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: '#1A1A18' }}>{item.qty}</span>
-                          <button onClick={() => addToCart(item)} style={{ width: '32px', height: '32px', background: 'none', border: 'none', cursor: 'pointer', color: '#8C8478', fontSize: '16px' }}>+</button>
+                          <button onClick={() => increaseQty(item._id)} style={{ width: '32px', height: '32px', background: 'none', border: 'none', cursor: 'pointer', color: '#8C8478', fontSize: '16px' }}>+</button>
                         </div>
                         <button onClick={() => removeFromCart(item._id)} style={{ fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#8C8478', background: 'none', border: 'none', cursor: 'pointer', borderBottom: '1px solid #E2DDD5', paddingBottom: '2px' }}>
                           Remove

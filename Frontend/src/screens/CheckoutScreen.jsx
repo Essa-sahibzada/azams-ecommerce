@@ -5,7 +5,7 @@ import { useCart } from '../context/CartContext';
 
 const CheckoutScreen = () => {
   const navigate = useNavigate();
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, clearCart } = useCart();
 
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
@@ -41,7 +41,7 @@ const CheckoutScreen = () => {
         shippingPrice,
         totalPrice,
       });
-      cartItems.forEach((item) => removeFromCart(item._id));
+      clearCart();
       navigate('/order-success');
     } catch (err) {
       setError('Order place nahi hua. Dobara try karein.');

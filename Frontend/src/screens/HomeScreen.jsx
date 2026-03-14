@@ -152,35 +152,6 @@ const HomeScreen = () => {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer style={{ backgroundColor: '#1A1A18', color: 'white', padding: '60px 40px 32px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginBottom: '48px' }}>
-          <div>
-            <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '22px', letterSpacing: '6px', marginBottom: '14px' }}>AZAMS</h3>
-            <p style={{ fontSize: '10px', letterSpacing: '1.5px', color: 'rgba(255,255,255,0.3)', lineHeight: 2 }}>Premium clothing brand. Modern elegance, timeless design.</p>
-          </div>
-          {[
-            { title: 'Shop', links: ['New Arrivals', 'Men', 'Women', 'Sale'] },
-            { title: 'Info', links: ['About Us', 'Contact', 'Returns'] },
-            { title: 'Connect', links: ['Instagram', 'Facebook', 'WhatsApp'] },
-          ].map((col) => (
-            <div key={col.title}>
-              <h4 style={{ fontSize: '8px', letterSpacing: '4px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '16px' }}>{col.title}</h4>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                {col.links.map((l) => (
-                  <li key={l} style={{ marginBottom: '10px' }}>
-                    <a href="#" style={{ fontSize: '10px', letterSpacing: '1px', color: 'rgba(255,255,255,0.3)', textDecoration: 'none' }}>{l}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between' }}>
-          <p style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(255,255,255,0.2)' }}>© 2026 AZAMS. All rights reserved.</p>
-          <p style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(255,255,255,0.2)' }}>Made in Pakistan 🇵🇰</p>
-        </div>
-      </footer>
     </div>
   );
 };
