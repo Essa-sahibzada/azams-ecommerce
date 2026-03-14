@@ -6,20 +6,22 @@ import dotenv from 'dotenv';
 
 // Routes Import
 import productRoutes from './routes/productRoutes.js';
-import orderRoutes from './routes/orderRoutes.js';   // ✅ add kiya
+import orderRoutes from './routes/orderRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 
-//const app = express();
+const app = express();
 
 // ── Middleware ──
-//app.use(cors());
-const cors = require('cors');
-
 app.use(cors({
-  origin: ["https://azams-ecommerce-nrmpke516-essa-sahibzadas-projects.vercel.app"],
+  origin: [
+    "https://azams-ecommerce.vercel.app",
+    "https://azams-ecommerce-lwgz.vercel.app",
+    "https://azams-ecommerce-nrmpke516-essa-sahibzadas-projects.vercel.app",
+    "http://localhost:5173"
+  ],
   methods: ["POST", "GET", "PUT", "DELETE"],
   credentials: true
 }));
@@ -41,7 +43,7 @@ connectDB();
 
 // ── API Routes ──
 app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);     // ✅ add kiya
+app.use('/api/orders', orderRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/users', userRoutes);
 
