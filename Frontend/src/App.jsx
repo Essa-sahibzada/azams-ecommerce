@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "r
 
 // Components
 import HomeNavbar from "./component/HomeNavbar";
+import { ProtectedRoute, AdminRoute } from "./component/ProtectedRoute";
 import Footer from "./component/Footer";
 
 // Screens
