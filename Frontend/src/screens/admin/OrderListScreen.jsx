@@ -59,10 +59,10 @@ const OrderListScreen = () => {
 
   const markDelivered = async (id) => {
     try {
-      await axios.put(`/api/orders/${id}/deliver`);
+      await axios.put(`${API_URL}/api/orders/${id}/deliver`);
       setOrders(orders.map((o) => o._id === id ? { ...o, isDelivered: true, deliveredAt: new Date() } : o));
     } catch (err) {
-      alert('Update fail ho gaya');
+      alert('Update failed.');
     }
   };
 
