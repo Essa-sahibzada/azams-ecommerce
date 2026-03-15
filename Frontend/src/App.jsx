@@ -43,18 +43,18 @@ const AppLayout = () => {
           <Route path="/products" element={<ProductsScreen />} />
           <Route path="/about" element={<AboutScreen />} />
           <Route path="/product/:id" element={<ProductDetailScreen />} />
-          <Route path="/cart" element={<CartScreen />} />
-          <Route path="/checkout" element={<CheckoutScreen />} />
+          <Route path="/cart" element={<ProtectedRoute><CartScreen /></ProtectedRoute>} />
+          <Route path="/checkout" element={<ProtectedRoute><CheckoutScreen /></ProtectedRoute>} />
           <Route path="/order-success" element={<OrderSuccessScreen />} />
 
           {/* Admin Routes */}
           <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
           <Route path="/admin/login" element={<AdminLoginScreen />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/productlist" element={<AdminLayout><ProductListScreen /></AdminLayout>} />
-          <Route path="/admin/product/create" element={<AdminLayout><ProductCreateScreen /></AdminLayout>} />
-          <Route path="/admin/orderlist" element={<AdminLayout><OrderListScreen /></AdminLayout>} />
-          <Route path="/admin/product/:id/edit" element={<AdminLayout><ProductEditScreen /></AdminLayout>} />
+          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="/admin/productlist" element={<AdminRoute><AdminLayout><ProductListScreen /></AdminLayout></AdminRoute>} />
+          <Route path="/admin/product/create" element={<AdminRoute><AdminLayout><ProductCreateScreen /></AdminLayout></AdminRoute>} />
+          <Route path="/admin/orderlist" element={<AdminRoute><AdminLayout><OrderListScreen /></AdminLayout></AdminRoute>} />
+          <Route path="/admin/product/:id/edit" element={<AdminRoute><AdminLayout><ProductEditScreen /></AdminLayout></AdminRoute>} />
         </Routes>
       </main>
 
