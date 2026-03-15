@@ -41,12 +41,12 @@ const AppLayout = () => {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
-          <Route path="/products" element={<ProductsScreen />} />
-          <Route path="/about" element={<AboutScreen />} />
-          <Route path="/product/:id" element={<ProductDetailScreen />} />
+          <Route path="/products" element={<ProtectedRoute><ProductsScreen /></ProtectedRoute>} />
+          <Route path="/about" element={<ProtectedRoute><AboutScreen /></ProtectedRoute>} />
+          <Route path="/product/:id" element={<ProtectedRoute><ProductDetailScreen /></ProtectedRoute>} />
           <Route path="/cart" element={<ProtectedRoute><CartScreen /></ProtectedRoute>} />
           <Route path="/checkout" element={<ProtectedRoute><CheckoutScreen /></ProtectedRoute>} />
-          <Route path="/order-success" element={<OrderSuccessScreen />} />
+          <Route path="/order-success" element={<ProtectedRoute><OrderSuccessScreen /></ProtectedRoute>} />
 
           {/* Admin Routes */}
           <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
