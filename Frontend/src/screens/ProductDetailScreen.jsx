@@ -18,7 +18,7 @@ const ProductDetailScreen = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await axios.get(`/api/products/${id}`);
+        const { data } = await axios.get(`${API_URL}/api/products/${id}`);
         setProduct(data);
       } catch (err) {
         console.error(err);
@@ -102,7 +102,7 @@ const ProductDetailScreen = () => {
             {/* Stock warning */}
             {product.countInStock <= 5 && product.countInStock > 0 && (
               <p style={{ fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#f59e0b', marginBottom: '16px' }}>
-                ⚠ Sirf {product.countInStock}Remaining
+                ⚠ Sirf {product.countInStock} bacha hai
               </p>
             )}
 
