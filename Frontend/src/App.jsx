@@ -9,6 +9,9 @@ import Footer from "./component/Footer";
 // Screens
 import HomeScreen from "./screens/HomeScreen";
 import AboutScreen from "./screens/AboutScreen";
+import TrackOrderScreen from "./screens/TrackOrderScreen";
+import ShippingPolicyScreen from "./screens/ShippingPolicyScreen";
+import ReturnExchangeScreen from "./screens/ReturnExchangeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import CheckoutScreen from "./screens/CheckoutScreen";
 import OrderSuccessScreen from "./screens/OrderSuccessScreen";
@@ -47,6 +50,9 @@ const AppLayout = () => {
           <Route path="/cart" element={<ProtectedRoute><CartScreen /></ProtectedRoute>} />
           <Route path="/checkout" element={<ProtectedRoute><CheckoutScreen /></ProtectedRoute>} />
           <Route path="/order-success" element={<ProtectedRoute><OrderSuccessScreen /></ProtectedRoute>} />
+          <Route path="/track-order" element={<ProtectedRoute><TrackOrderScreen /></ProtectedRoute>} />
+          <Route path="/shipping-policy" element={<ShippingPolicyScreen />} />
+          <Route path="/return-exchange" element={<ReturnExchangeScreen />} />
 
           {/* Admin Routes */}
           <Route path="/admin" element={<Navigate to="/admin/login" replace />} />

@@ -10,11 +10,29 @@ const Footer = () => {
     if (email) { setSubscribed(true); setEmail(''); }
   };
 
+  const customerCare = [
+    { label: 'Track Order', path: '/track-order' },
+    { label: 'Shipping Policy', path: '/shipping-policy' },
+    { label: 'Return & Exchange', path: '/return-exchange' },
+    { label: 'FAQs', path: '#' },
+  ];
+
+  const information = [
+    { label: 'About Us', path: '/about' },
+    { label: 'Contact Us', path: '#' },
+    { label: 'Privacy Policy', path: '#' },
+    { label: 'Terms of Service', path: '#' },
+  ];
+
+  const linkStyle = {
+    fontSize: '10px', letterSpacing: '1px',
+    color: 'rgba(255,255,255,0.3)', textDecoration: 'none',
+  };
+
   return (
     <footer style={{ backgroundColor: '#1A1A18', color: 'white', fontFamily: "'Josefin Sans', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Josefin+Sans:wght@300;400&display=swap');`}</style>
 
-      {/* Main Grid */}
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '64px 40px 48px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1.5fr', gap: '48px' }}>
 
         {/* Brand */}
@@ -23,18 +41,9 @@ const Footer = () => {
           <p style={{ fontSize: '10px', letterSpacing: '1px', color: 'rgba(255,255,255,0.3)', lineHeight: 2, marginBottom: '24px', maxWidth: '240px' }}>
             Premium clothing brand. Modern elegance, timeless design. Made in Pakistan 🇵🇰
           </p>
-          {/* Social Links */}
           <div style={{ display: 'flex', gap: '16px' }}>
             {['Instagram', 'Facebook', 'WhatsApp'].map((s) => (
-              <a key={s} href="#" style={{
-                fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.25)', textDecoration: 'none',
-                borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '2px',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => e.target.style.color = '#C9A96E'}
-              onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.25)'}
-              >{s}</a>
+              <a key={s} href="#" style={{ fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', textDecoration: 'none', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '2px' }}>{s}</a>
             ))}
           </div>
         </div>
@@ -43,12 +52,9 @@ const Footer = () => {
         <div>
           <h4 style={{ fontSize: '8px', letterSpacing: '4px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '20px' }}>Customer Care</h4>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {['Track Order', 'Shipping Policy', 'Return & Exchange', 'FAQs'].map((item) => (
-              <li key={item}>
-                <a href="#" style={{ fontSize: '10px', letterSpacing: '1px', color: 'rgba(255,255,255,0.3)', textDecoration: 'none' }}
-                  onMouseEnter={e => e.target.style.color = 'white'}
-                  onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.3)'}
-                >{item}</a>
+            {customerCare.map((item) => (
+              <li key={item.label}>
+                <Link to={item.path} style={linkStyle}>{item.label}</Link>
               </li>
             ))}
           </ul>
@@ -58,17 +64,9 @@ const Footer = () => {
         <div>
           <h4 style={{ fontSize: '8px', letterSpacing: '4px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '20px' }}>Information</h4>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {[
-              { label: 'About Us', path: '/about' },
-              { label: 'Contact Us', path: '#' },
-              { label: 'Privacy Policy', path: '#' },
-              { label: 'Terms of Service', path: '#' },
-            ].map((item) => (
+            {information.map((item) => (
               <li key={item.label}>
-                <Link to={item.path} style={{ fontSize: '10px', letterSpacing: '1px', color: 'rgba(255,255,255,0.3)', textDecoration: 'none' }}
-                  onMouseEnter={e => e.target.style.color = 'white'}
-                  onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.3)'}
-                >{item.label}</Link>
+                <Link to={item.path} style={linkStyle}>{item.label}</Link>
               </li>
             ))}
           </ul>
@@ -78,29 +76,16 @@ const Footer = () => {
         <div>
           <h4 style={{ fontSize: '8px', letterSpacing: '4px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '12px' }}>Newsletter</h4>
           <p style={{ fontSize: '10px', letterSpacing: '1px', color: 'rgba(255,255,255,0.3)', lineHeight: 2, marginBottom: '16px' }}>
-            Latest arrivals aur exclusive offers ke liye subscribe karein.
+            Subscribe for latest arrivals and exclusive offers.
           </p>
           {subscribed ? (
             <p style={{ fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#C9A96E' }}>✦ Subscribed!</p>
           ) : (
             <form onSubmit={handleSubscribe} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <input
-                type="email"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                style={{
-                  padding: '11px 14px', fontSize: '10px', letterSpacing: '1px',
-                  backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
-                  color: 'white', outline: 'none', fontFamily: "'Josefin Sans', sans-serif",
-                  width: '100%', boxSizing: 'border-box',
-                }}
+              <input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)}
+                style={{ padding: '11px 14px', fontSize: '10px', letterSpacing: '1px', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'white', outline: 'none', fontFamily: "'Josefin Sans', sans-serif", width: '100%', boxSizing: 'border-box' }}
               />
-              <button type="submit" style={{
-                padding: '11px', fontSize: '8px', letterSpacing: '3px', textTransform: 'uppercase',
-                backgroundColor: '#C9A96E', color: '#1A1A18', border: 'none', cursor: 'pointer',
-                fontFamily: "'Josefin Sans', sans-serif",
-              }}>
+              <button type="submit" style={{ padding: '11px', fontSize: '8px', letterSpacing: '3px', textTransform: 'uppercase', backgroundColor: '#C9A96E', color: '#1A1A18', border: 'none', cursor: 'pointer', fontFamily: "'Josefin Sans', sans-serif" }}>
                 Subscribe
               </button>
             </form>
