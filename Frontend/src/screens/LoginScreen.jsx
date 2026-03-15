@@ -17,7 +17,7 @@ const LoginScreen = () => {
       await signInWithPopup(auth, googleProvider);
       navigate('/');
     } catch (err) {
-      setError('Google login fail ho gaya. Dobara try karein.');
+      setError('Google login failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -26,13 +26,13 @@ const LoginScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setError('');
-    if (!email || !password) return setError('Email aur password daalen.');
+    if (!email || !password) return setError('Enter email and password..');
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/');
     } catch (err) {
-      setError('Email ya password galat hai.');
+      setError('Email or password is incorrect..');
     } finally {
       setLoading(false);
     }
@@ -188,9 +188,9 @@ const LoginScreen = () => {
 
         {/* Register Link */}
         <p style={{ textAlign: 'center', fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#8C8478' }}>
-          Account nahi hai?{' '}
+          Don't have an account??{' '}
           <Link to="/register" style={{ color: '#C9A96E', textDecoration: 'none', borderBottom: '1px solid #C9A96E', paddingBottom: '1px' }}>
-            Register Karein
+            Please Register.
           </Link>
         </p>
 

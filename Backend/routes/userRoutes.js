@@ -26,7 +26,7 @@ router.post('/google', async (req, res) => {
       res.status(201).json(createdUser);
     }
   } catch (error) {
-    res.status(400).json({ message: "User save nahi ho saka" });
+    res.status(400).json({ message: "User could not be saved." });
   }
 });
 

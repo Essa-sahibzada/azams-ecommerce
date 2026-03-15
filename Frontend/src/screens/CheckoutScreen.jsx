@@ -23,9 +23,9 @@ const CheckoutScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setError('');
-    if (!name || !address || !city || !phone) return setError('Sab fields bharein.');
-    if (phone.length < 11) return setError('Phone number 11 digits ka hona chahiye.');
-    if (cartItems.length === 0) return setError('Cart khali hai.');
+    if (!name || !address || !city || !phone) return setError('Please fill in all fields.');
+    if (phone.length < 11) return setError('The phone number must be 11 digits..');
+    if (cartItems.length === 0) return setError('The cart is empty..');
 
     setLoading(true);
     try {
@@ -46,7 +46,7 @@ const CheckoutScreen = () => {
       clearCart();
       navigate('/order-success');
     } catch (err) {
-      setError('Order place nahi hua. Dobara try karein.');
+      setError('Order could not be placed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -174,7 +174,7 @@ const CheckoutScreen = () => {
                   </div>
                   <div>
                     <p style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: '#1A1A18', marginBottom: '2px' }}>Cash on Delivery</p>
-                    <p style={{ fontSize: '9px', letterSpacing: '1px', color: '#8C8478' }}>Delivery pe payment karein</p>
+                    <p style={{ fontSize: '9px', letterSpacing: '1px', color: '#8C8478' }}>Pay on delivery.</p>
                   </div>
                 </div>
               </div>

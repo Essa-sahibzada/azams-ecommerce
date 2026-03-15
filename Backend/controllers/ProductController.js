@@ -8,7 +8,7 @@ export const getProducts = async (req, res) => {
     const products = await Product.find({});
     res.json(products);
   } catch (error) {
-    res.status(500).json({ message: 'Products load nahi hue', error: error.message });
+    res.status(500).json({ message: 'Products could not be loaded.', error: error.message });
   }
 };
 
@@ -19,11 +19,11 @@ export const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
-      return res.status(404).json({ message: 'Product nahi mila' });
+      return res.status(404).json({ message: 'Product not found.' });
     }
     res.json(product);
   } catch (error) {
-    res.status(500).json({ message: 'Product load nahi hua', error: error.message });
+    res.status(500).json({ message: 'Product could not be loaded.', error: error.message });
   }
 };
 
@@ -46,7 +46,7 @@ export const createProduct = async (req, res) => {
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
   } catch (error) {
-    res.status(400).json({ message: 'Product create nahi hua', error: error.message });
+    res.status(400).json({ message: 'Product could not be created.', error: error.message });
   }
 };
 
@@ -59,7 +59,7 @@ export const updateProduct = async (req, res) => {
 
     const product = await Product.findById(req.params.id);
     if (!product) {
-      return res.status(404).json({ message: 'Product nahi mila' });
+      return res.status(404).json({ message: 'Product not found.' });
     }
 
     product.name = name ?? product.name;
@@ -72,7 +72,7 @@ export const updateProduct = async (req, res) => {
     const updatedProduct = await product.save();
     res.json(updatedProduct);
   } catch (error) {
-    res.status(400).json({ message: 'Product update nahi hua', error: error.message });
+    res.status(400).json({ message: 'Product could not be updated.', error: error.message });
   }
 };
 
@@ -83,12 +83,12 @@ export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
-      return res.status(404).json({ message: 'Product nahi mila' });
+      return res.status(404).json({ message: 'Product not found.' });
     }
 
     await product.deleteOne();
-    res.json({ message: 'Product delete ho gaya' });
+    res.json({ message: 'Product deleted.' });
   } catch (error) {
-    res.status(500).json({ message: 'Delete nahi ho saka', error: error.message });
+    res.status(500).json({ message: 'Could not be deleted.', error: error.message });
   }
 };

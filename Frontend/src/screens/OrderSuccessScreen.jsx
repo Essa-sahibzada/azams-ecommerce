@@ -60,7 +60,7 @@ const OrderSuccessScreen = () => {
 
         {/* Text */}
         <p style={{ fontSize: '9px', letterSpacing: '6px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '16px' }}>
-          Shukriya!
+         Thank you.!
         </p>
         <h1 style={{
           fontFamily: "'Cormorant Garamond', serif",

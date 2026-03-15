@@ -102,7 +102,7 @@ const ProductDetailScreen = () => {
             {/* Stock warning */}
             {product.countInStock <= 5 && product.countInStock > 0 && (
               <p style={{ fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#f59e0b', marginBottom: '16px' }}>
-                ⚠ Sirf {product.countInStock} bacha hai
+                ⚠ Sirf {product.countInStock}Remaining
               </p>
             )}
 

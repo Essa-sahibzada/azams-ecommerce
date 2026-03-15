@@ -33,7 +33,7 @@ const RegisterScreen = () => {
       await signInWithPopup(auth, googleProvider);
       navigate('/');
     } catch (err) {
-      setError('Google signup fail ho gaya. Dobara try karein.');
+      setError('Google signup failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -43,14 +43,14 @@ const RegisterScreen = () => {
     e.preventDefault();
     setError('');
     if (!firstName || !email || !password) return setError('Sab fields bharein.');
-    if (password.length < 6) return setError('Password kam az kam 6 characters ka hona chahiye.');
+    if (password.length < 6) return setError('Password must be at least 6 characters long.');
     setLoading(true);
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(user, { displayName: `${firstName} ${lastName}` });
       navigate('/');
     } catch (err) {
-      setError('Account create nahi ho saka. Email pehle se registered ho sakti hai.');
+      setError('Account could not be created. The email may already be registered.');
     } finally {
       setLoading(false);
     }
@@ -150,7 +150,7 @@ const RegisterScreen = () => {
             <div>
               <label style={labelStyle}>Password</label>
               <input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} style={inputStyle} />
-              <p style={{ fontSize: '8px', letterSpacing: '1px', color: '#8C8478', marginTop: '6px' }}>Kam az kam 6 characters</p>
+              <p style={{ fontSize: '8px', letterSpacing: '1px', color: '#8C8478', marginTop: '6px' }}>At least 6 characters.</p>
             </div>
           </div>
 
@@ -174,9 +174,9 @@ const RegisterScreen = () => {
 
         {/* Login Link */}
         <p style={{ textAlign: 'center', fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase', color: '#8C8478' }}>
-          Pehle se account hai?{' '}
+          Already have an account?{' '}
           <Link to="/login" style={{ color: '#C9A96E', textDecoration: 'none', borderBottom: '1px solid #C9A96E', paddingBottom: '1px' }}>
-            Login Karein
+            Please Login.
           </Link>
         </p>
 

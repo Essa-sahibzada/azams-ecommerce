@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     const products = await Product.find({});
     res.json(products);
   } catch (error) {
-    res.status(500).json({ message: 'Products fetch nahi ho sakay' });
+    res.status(500).json({ message: 'The products could not be fetched.' });
   }
 });
 
@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
     if (product) {
       res.json(product);
     } else {
-      res.status(404).json({ message: 'Product nahi mila' });
+      res.status(404).json({ message: 'Product not found.' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Invalid ID Format' });
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
   } catch (error) {
-    res.status(400).json({ message: 'Product create nahi ho saka' });
+    res.status(400).json({ message: 'Product could not be created.' });
   }
 });
 
@@ -70,7 +70,7 @@ router.put('/:id', async (req, res) => {
       const updatedProduct = await product.save();
       res.json(updatedProduct);
     } else {
-      res.status(404).json({ message: 'Product nahi mila' });
+      res.status(404).json({ message: 'Product not found.' });
     }
   } catch (error) {
     res.status(400).json({ message: 'Update failed' });
@@ -85,9 +85,9 @@ router.delete('/:id', async (req, res) => {
 
     if (product) {
       await product.deleteOne();
-      res.json({ message: 'Product delete ho gaya' });
+      res.json({ message: 'Product deleted.' });
     } else {
-      res.status(404).json({ message: 'Product nahi mila' });
+      res.status(404).json({ message: 'Product not found.' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Server error' });

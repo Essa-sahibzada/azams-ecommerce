@@ -7,7 +7,7 @@ export const addOrderItems = async (req, res) => {
     const { orderItems, shippingAddress, paymentMethod, itemsPrice, shippingPrice, totalPrice } = req.body;
 
     if (!orderItems || orderItems.length === 0) {
-      return res.status(400).json({ message: 'Cart khali hai' });
+      return res.status(400).json({ message: 'The cart is empty.' });
     }
 
     const order = new Order({
@@ -28,7 +28,7 @@ export const addOrderItems = async (req, res) => {
     const createdOrder = await order.save();
     res.status(201).json(createdOrder);
   } catch (error) {
-    res.status(500).json({ message: 'Order place nahi hua', error: error.message });
+    res.status(500).json({ message: 'Order could not be placed.', error: error.message });
   }
 };
 
@@ -39,7 +39,7 @@ export const getOrders = async (req, res) => {
     const orders = await Order.find({}).sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
-    res.status(500).json({ message: 'Orders load nahi hue', error: error.message });
+    res.status(500).json({ message: 'Orders could not be loaded.', error: error.message });
   }
 };
 
@@ -48,10 +48,10 @@ export const getOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
-    if (!order) return res.status(404).json({ message: 'Order nahi mila' });
+    if (!order) return res.status(404).json({ message: 'Order not found.' });
     res.json(order);
   } catch (error) {
-    res.status(500).json({ message: 'Order load nahi hua', error: error.message });
+    res.status(500).json({ message: 'Order could not be loaded.', error: error.message });
   }
 };
 
@@ -60,7 +60,7 @@ export const getOrderById = async (req, res) => {
 export const updateOrderToDelivered = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
-    if (!order) return res.status(404).json({ message: 'Order nahi mila' });
+    if (!order) return res.status(404).json({ message: 'Order not found.' });
 
     order.isDelivered = true;
     order.deliveredAt = Date.now();
@@ -68,6 +68,6 @@ export const updateOrderToDelivered = async (req, res) => {
     const updatedOrder = await order.save();
     res.json(updatedOrder);
   } catch (error) {
-    res.status(500).json({ message: 'Update nahi ho saka', error: error.message });
+    res.status(500).json({ message: 'Could not be updated.', error: error.message });
   }
 };

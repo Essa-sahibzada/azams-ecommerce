@@ -59,12 +59,12 @@ const ProductListScreen = () => {
   }, []);
 
   const deleteProduct = async (id) => {
-    if (!window.confirm('Product delete karna chahte hain?')) return;
+    if (!window.confirm('Do you want to delete the product?')) return;
     try {
       await axios.delete(`/api/products/${id}`);
       setProducts(products.filter((p) => p._id !== id));
     } catch (err) {
-      alert('Delete fail ho gaya');
+      alert('Delete failed.');
     }
   };
 
@@ -123,7 +123,7 @@ const ProductListScreen = () => {
             </div>
           ) : products.length === 0 ? (
             <div style={{ padding: '60px', textAlign: 'center', color: '#8C8478', fontSize: '10px', letterSpacing: '3px', textTransform: 'uppercase' }}>
-              Koi product nahi
+              No products.
             </div>
           ) : (
             products.map((product, i) => (

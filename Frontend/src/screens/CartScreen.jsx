@@ -119,7 +119,7 @@ const CartScreen = () => {
 
                 {!freeShipping && (
                   <p style={{ marginTop: '14px', fontSize: '8px', letterSpacing: '1px', color: 'rgba(255,255,255,0.3)', textAlign: 'center', lineHeight: 1.8 }}>
-                    Rs. {(5000 - subtotal).toLocaleString()} aur add karo free shipping ke liye
+                    Rs. {(5000 - subtotal).toLocaleString()} Add more for free shipping.
                   </p>
                 )}
                 {freeShipping && (

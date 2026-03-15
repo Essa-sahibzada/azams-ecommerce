@@ -23,7 +23,7 @@ const fileFilter = (req, file, cb) => {
   if (isValid) {
     cb(null, true);
   } else {
-    cb(new Error('Sirf images upload ho sakti hain (jpg, png, webp)'));
+    cb(new Error('Only images can be uploaded. (jpg, png, webp)'));
   }
 };
 

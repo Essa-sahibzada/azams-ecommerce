@@ -20,7 +20,7 @@ const ProductsScreen = () => {
         const { data } = await axios.get(`${API_URL}/api/products`);
         setProducts(data);
       } catch (err) {
-        setError('Products load nahi hue.');
+        setError('Products could not be loaded.');
       } finally {
         setLoading(false);
       }
