@@ -107,7 +107,7 @@ const OrderListScreen = () => {
             </div>
           ) : orders.length === 0 ? (
             <div style={{ padding: '60px', textAlign: 'center', color: '#8C8478', fontSize: '10px', letterSpacing: '3px', textTransform: 'uppercase' }}>
-              Koi order nahi abhi
+              No orders yet.
             </div>
           ) : (
             orders.map((order, i) => (

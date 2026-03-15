@@ -37,7 +37,7 @@ const HomeScreen = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap');
         @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } } @media (max-width: 640px) { .home-grid { grid-template-columns: repeat(2, 1fr) !important; } }
       `}</style>
 
       {/* ── HERO ── */}
@@ -75,7 +75,7 @@ const HomeScreen = () => {
       </div>
 
       {/* ── PRODUCTS ── */}
-      <section style={{ padding: '80px 40px' }}>
+      <section style={{ padding: 'clamp(40px, 6vw, 80px) clamp(16px, 4vw, 40px)' }}>
         {/* Section Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px' }}>
           <div>
@@ -100,7 +100,7 @@ const HomeScreen = () => {
 
         {/* Products 4-column grid */}
         {!loading && products.length > 0 && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', width: '100%' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', width: '100%' }} className='home-grid'>
             {products.map((product) => (
               <div key={product._id} style={{ backgroundColor: '#F0EDE6', overflow: 'hidden' }}>
                 {/* Image */}

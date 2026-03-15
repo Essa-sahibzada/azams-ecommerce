@@ -36,7 +36,7 @@ const CartScreen = () => {
             </Link>
           </div>
         ) : (
-          <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-start' }}>
+          <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
             {/* LEFT: Items (flex:1) */}
             <div style={{ flex: 1 }}>
@@ -89,7 +89,7 @@ const CartScreen = () => {
             </div>
 
             {/* RIGHT: Summary (fixed width 320px) */}
-            <div style={{ width: '320px', flexShrink: 0 }}>
+            <div style={{ width: 'min(320px, 100%)', flexShrink: 0 }}>
               <div style={{ backgroundColor: '#1A1A18', padding: '32px', position: 'sticky', top: '100px' }}>
                 <h2 style={{ fontSize: '9px', letterSpacing: '4px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   Order Summary
@@ -119,7 +119,7 @@ const CartScreen = () => {
 
                 {!freeShipping && (
                   <p style={{ marginTop: '14px', fontSize: '8px', letterSpacing: '1px', color: 'rgba(255,255,255,0.3)', textAlign: 'center', lineHeight: 1.8 }}>
-                    Rs. {(5000 - subtotal).toLocaleString()} Add more for free shipping.
+                    Rs. {(5000 - subtotal).toLocaleString()} aur add karo free shipping ke liye
                   </p>
                 )}
                 {freeShipping && (

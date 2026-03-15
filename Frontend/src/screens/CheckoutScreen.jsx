@@ -23,9 +23,9 @@ const CheckoutScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setError('');
-    if (!name || !address || !city || !phone) return setError('Please fill in all fields.');
-    if (phone.length < 11) return setError('The phone number must be 11 digits..');
-    if (cartItems.length === 0) return setError('The cart is empty..');
+    if (!name || !address || !city || !phone) return setError('Sab fields bharein.');
+    if (phone.length < 11) return setError('Phone number 11 digits ka hona chahiye.');
+    if (cartItems.length === 0) return setError('Cart khali hai.');
 
     setLoading(true);
     try {
@@ -46,7 +46,7 @@ const CheckoutScreen = () => {
       clearCart();
       navigate('/order-success');
     } catch (err) {
-      setError('Order could not be placed. Please try again.');
+      setError('Order place nahi hua. Dobara try karein.');
     } finally {
       setLoading(false);
     }
@@ -92,7 +92,7 @@ const CheckoutScreen = () => {
         input:focus { border-color: #C9A96E !important; }
       `}</style>
 
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '64px 32px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: 'clamp(24px, 4vw, 64px) clamp(16px, 3vw, 32px)' }}>
 
         {/* Title */}
         <div style={{ textAlign: 'center', marginBottom: '56px' }}>
@@ -110,7 +110,7 @@ const CheckoutScreen = () => {
         )}
 
         <form onSubmit={submitHandler}>
-          <div style={{ display: 'flex', gap: '40px', alignItems: 'flex-start' }}>
+          <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
             {/* LEFT: Form */}
             <div style={{ flex: 1 }}>
@@ -174,7 +174,7 @@ const CheckoutScreen = () => {
                   </div>
                   <div>
                     <p style={{ fontSize: '11px', letterSpacing: '2px', textTransform: 'uppercase', color: '#1A1A18', marginBottom: '2px' }}>Cash on Delivery</p>
-                    <p style={{ fontSize: '9px', letterSpacing: '1px', color: '#8C8478' }}>Pay on delivery.</p>
+                    <p style={{ fontSize: '9px', letterSpacing: '1px', color: '#8C8478' }}>Delivery pe payment karein</p>
                   </div>
                 </div>
               </div>
@@ -182,7 +182,7 @@ const CheckoutScreen = () => {
             </div>
 
             {/* RIGHT: Order Summary */}
-            <div style={{ width: '340px', flexShrink: 0 }}>
+            <div style={{ width: 'min(340px, 100%)', flexShrink: 0 }}>
               <div style={{ backgroundColor: '#1A1A18', padding: '32px', position: 'sticky', top: '100px' }}>
                 <h2 style={{ fontSize: '9px', letterSpacing: '4px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   Your Order
