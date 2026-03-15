@@ -1,38 +1,36 @@
-import path from 'path';
 import express from 'express';
 import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import dotenv from 'dotenv';
 
-const router = express.Router();
+dotenv.config();
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    );
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'azams-products',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+    transformation: [{ width: 800, height: 1000, crop: 'limit' }],
   },
 });
 
-// Sirf images allow karein
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|webp/;
-  const isValid = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  if (isValid) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only images can be uploaded. (jpg, png, webp)'));
-  }
-};
+const upload = multer({ storage });
 
-const upload = multer({ storage, fileFilter });
+const router = express.Router();
 
 router.post('/', upload.single('image'), (req, res) => {
-  // ✅ Windows backslash fix — forward slash use karo
-  const filePath = `/${req.file.path.replace(/\\/g, '/')}`;
-  res.send(filePath);
+  try {
+    res.json({ url: req.file.path });
+  } catch (error) {
+    res.status(500).json({ message: 'Image upload failed.' });
+  }
 });
 
 export default router;

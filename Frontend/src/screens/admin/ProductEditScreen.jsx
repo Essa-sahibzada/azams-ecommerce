@@ -50,6 +50,7 @@ const ProductEditScreen = () => {
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -63,7 +64,7 @@ const ProductEditScreen = () => {
         setImage(data.image);
         setDescription(data.description || '');
       } catch (err) {
-        setError('Product load nahi hua.');
+        setError('Product could not be loaded.');
       } finally {
         setLoading(false);
       }
@@ -84,9 +85,27 @@ const ProductEditScreen = () => {
     textTransform: 'uppercase', color: '#8C8478', marginBottom: '6px',
   };
 
+  const uploadHandler = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    try {
+      const { data } = await axios.post(`${API_URL}/api/upload`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setImage(data.url);
+    } catch (err) {
+      setError('Image upload failed.');
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (!name || !price || !category || !image) return setError('Sab fields zaruri hain.');
+    if (!name || !price || !category || !image) return setError('All fields are required.');
     setSaving(true);
     try {
       await axios.put(`/api/products/${id}`, {
@@ -96,7 +115,7 @@ const ProductEditScreen = () => {
       });
       navigate('/admin/productlist');
     } catch (err) {
-      setError('Update nahi ho saka.');
+      setError('Could not be updated.');
     } finally {
       setSaving(false);
     }
@@ -165,7 +184,7 @@ const ProductEditScreen = () => {
                   <div>
                     <label style={labelStyle}>Category *</label>
                     <select value={category} onChange={(e) => setCategory(e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
-                      <option value="">Category chunein</option>
+                      <option value="">Please select a category.</option>
                       <optgroup label="Men">
                         <option value="Shalwar Kameez">Shalwar Kameez</option>
                         <option value="Shirt">Shirt</option>
@@ -190,6 +209,18 @@ const ProductEditScreen = () => {
                   <div>
                     <label style={labelStyle}>Image URL</label>
                     <input type="text" value={image} onChange={(e) => setImage(e.target.value)} style={inputStyle} />
+                    <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <label style={{
+                        padding: '9px 20px', fontSize: '8px', letterSpacing: '2px',
+                        textTransform: 'uppercase', backgroundColor: '#F0EDE6',
+                        border: '1px solid #E2DDD5', cursor: 'pointer',
+                        color: '#1A1A18', fontFamily: "'Josefin Sans', sans-serif",
+                      }}>
+                        {uploading ? 'Uploading...' : '📁 Upload Image'}
+                        <input type="file" accept="image/*" onChange={uploadHandler} style={{ display: 'none' }} />
+                      </label>
+                      {image && !uploading && <span style={{ fontSize: '9px', color: '#C9A96E' }}>✦ Uploaded!</span>}
+                    </div>
                   </div>
 
                   <div>

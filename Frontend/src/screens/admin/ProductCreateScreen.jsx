@@ -48,6 +48,7 @@ const ProductCreateScreen = () => {
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
 
   const inputStyle = {
@@ -63,9 +64,27 @@ const ProductCreateScreen = () => {
     textTransform: 'uppercase', color: '#8C8478', marginBottom: '6px',
   };
 
+  const uploadHandler = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    try {
+      const { data } = await axios.post(`${API_URL}/api/upload`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setImage(data.url);
+    } catch (err) {
+      setError('Image upload failed..');
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (!name || !price || !category || !image) return setError('Sab fields zaruri hain.');
+    if (!name || !price || !category || !image) return setError('All fields are required..');
     setLoading(true);
     try {
       await axios.post(`${API_URL}/api/products`, {
@@ -75,7 +94,7 @@ const ProductCreateScreen = () => {
       });
       navigate('/admin/productlist');
     } catch (err) {
-      setError('Product create nahi ho saka.');
+      setError('Product could not be created.');
     } finally {
       setLoading(false);
     }
@@ -136,7 +155,7 @@ const ProductCreateScreen = () => {
               <div>
                 <label style={labelStyle}>Category *</label>
                 <select value={category} onChange={(e) => setCategory(e.target.value)} style={{ ...inputStyle, cursor: 'pointer' }}>
-                  <option value="">Category chunein</option>
+                  <option value="">Please select a category.</option>
                   <optgroup label="─── MEN ───">
                     <option value="Shalwar Kameez">Shalwar Kameez</option>
                     <option value="Shirt">Shirt</option>
@@ -158,10 +177,23 @@ const ProductCreateScreen = () => {
                 </select>
               </div>
 
-              {/* Image URL */}
+              {/* Image URL + Upload */}
               <div>
                 <label style={labelStyle}>Image URL *</label>
                 <input type="text" placeholder="https://..." value={image} onChange={(e) => setImage(e.target.value)} style={inputStyle} />
+                <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <label style={{
+                    padding: '9px 20px', fontSize: '8px', letterSpacing: '2px',
+                    textTransform: 'uppercase', backgroundColor: '#F0EDE6',
+                    border: '1px solid #E2DDD5', cursor: 'pointer',
+                    color: '#1A1A18', fontFamily: "'Josefin Sans', sans-serif",
+                  }}>
+                    {uploading ? 'Uploading...' : '📁 Upload Image'}
+                    <input type="file" accept="image/*" onChange={uploadHandler} style={{ display: 'none' }} />
+                  </label>
+                  {uploading && <span style={{ fontSize: '9px', color: '#8C8478', letterSpacing: '1px' }}>Please wait...</span>}
+                  {image && !uploading && <span style={{ fontSize: '9px', color: '#C9A96E', letterSpacing: '1px' }}>✦ Uploaded!</span>}
+                </div>
               </div>
 
               {/* Description */}
@@ -190,7 +222,7 @@ const ProductCreateScreen = () => {
                 ) : (
                   <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '8px' }}>
                     <span style={{ fontSize: '24px', color: '#C4BFB8' }}>🖼</span>
-                    <p style={{ fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#C4BFB8' }}>Image URL daalo</p>
+                    <p style={{ fontSize: '8px', letterSpacing: '2px', textTransform: 'uppercase', color: '#C4BFB8' }}>Enter the image URL.</p>
                   </div>
                 )}
               </div>
