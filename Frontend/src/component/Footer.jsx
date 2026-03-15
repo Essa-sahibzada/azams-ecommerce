@@ -33,7 +33,7 @@ const Footer = () => {
     <footer style={{ backgroundColor: '#1A1A18', color: 'white', fontFamily: "'Josefin Sans', sans-serif" }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Josefin+Sans:wght@300;400&display=swap');`}</style>
 
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '64px 40px 48px', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1.5fr', gap: '48px' }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: 'clamp(40px, 5vw, 64px) clamp(20px, 4vw, 40px) 48px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '40px' }}>
 
         {/* Brand */}
         <div>
@@ -94,7 +94,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px 40px', maxWidth: '1400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '20px clamp(20px, 4vw, 40px)', maxWidth: '1400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <p style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(255,255,255,0.2)' }}>© 2026 AZAMS. All rights reserved.</p>
         <p style={{ fontSize: '9px', letterSpacing: '2px', color: 'rgba(255,255,255,0.2)' }}>Made with ♥ in Pakistan</p>
       </div>
