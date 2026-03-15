@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../../api';
 
 const Sidebar = () => {
+  const location = useLocation();
   const navLinks = [
     { label: 'Dashboard', path: '/admin/dashboard', icon: '▦' },
     { label: 'Orders', path: '/admin/orderlist', icon: '◈' },
@@ -22,9 +23,9 @@ const Sidebar = () => {
             display: 'flex', alignItems: 'center', gap: '12px',
             padding: '12px 24px', textDecoration: 'none',
             fontSize: '9px', letterSpacing: '2px', textTransform: 'uppercase',
-            color: window.location.pathname === link.path ? '#C9A96E' : 'rgba(255,255,255,0.4)',
-            backgroundColor: window.location.pathname === link.path ? 'rgba(201,169,110,0.08)' : 'transparent',
-            borderLeft: window.location.pathname === link.path ? '2px solid #C9A96E' : '2px solid transparent',
+            color: location.pathname === link.path ? '#C9A96E' : 'rgba(255,255,255,0.4)',
+            backgroundColor: location.pathname === link.path ? 'rgba(201,169,110,0.08)' : 'transparent',
+            borderLeft: location.pathname === link.path ? '2px solid #C9A96E' : '2px solid transparent',
           }}>
             <span style={{ fontSize: '14px' }}>{link.icon}</span>
             {link.label}

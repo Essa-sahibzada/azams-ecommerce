@@ -4,6 +4,7 @@ import axios from 'axios';
 import API_URL from '../../api';
 
 const Sidebar = () => {
+  const location = useLocation();
   const navLinks = [
     { label: 'Dashboard', path: '/admin/dashboard', icon: '▦' },
     { label: 'Orders', path: '/admin/orderlist', icon: '◈' },
