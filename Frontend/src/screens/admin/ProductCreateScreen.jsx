@@ -67,7 +67,7 @@ const ProductCreateScreen = () => {
     if (!name || !price || !category || !image) return setError('Sab fields zaruri hain.');
     setLoading(true);
     try {
-      await axios.post(`${API_URL}/api/products', {
+      await axios.post(`${API_URL}/api/products`, {
         name, price: Number(price),
         countInStock: Number(countInStock),
         category, image, description,
@@ -82,12 +82,8 @@ const ProductCreateScreen = () => {
 
   return (
     <div style={{ fontFamily: "'Josefin Sans', sans-serif", display: 'flex', minHeight: '100vh', backgroundColor: '#F7F4EF' }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Josefin+Sans:wght@300;400&display=swap');
-        input::placeholder, textarea::placeholder { color: #C4BFB8; }
-        input:focus, textarea:focus, select:focus { border-color: #C9A96E !important; outline: none; }
-        optgroup { font-weight: bold; color: #1A1A18; }
-      `}</style>
+      <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet" />
+
       <Sidebar />
 
       <main style={{ flex: 1, padding: '40px 48px', overflowY: 'auto' }}>
